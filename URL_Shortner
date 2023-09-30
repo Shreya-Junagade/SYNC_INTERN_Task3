@@ -1,9 +1,42 @@
-# pip install pyshorteners
-# pip install pyperclip
+import tkinter as tk
 import pyshorteners
-url = input('Enter the url: ')
-def shortenurl(url):
+
+# Function to shorten the input URL
+def shorten_url():
+    input_url = url_entry.get()
     s = pyshorteners.Shortener()
-    print("Shorter_URL")
-    print(s.tinyurl.short(url))
-shortenurl(url)
+    shortened_url = s.tinyurl.short(input_url)
+    output_label.config(text=f"Shortened URL: {shortened_url}")
+
+# Create the main window
+root = tk.Tk()
+root.title("Creative URL Shortener")
+
+# Set window size and background color
+root.geometry("400x300")
+root.configure(bg="BLACK")
+
+# Create a frame with a creative background
+frame = tk.Frame(root, bg="LIGHT PINK", bd=5)
+frame.place(relx=0.5, rely=0.5, relwidth=0.8, relheight=0.5, anchor="center")
+
+# Create a label for the title
+title_label = tk.Label(frame, text="URL Shortener", font=("Arial", 24, "bold"), fg="#333")
+title_label.pack(pady=20)
+
+# Create an entry field for entering the URL with a placeholder
+url_entry = tk.Entry(frame, font=("Arial", 12), width=50, bd=3, relief="ridge")
+url_entry.insert(0, "Enter URL here")
+url_entry.pack(pady=10)
+
+# Create a button with a creative style
+shorten_button = tk.Button(root, text="Shorten", command=shorten_url)
+shorten_button.pack(pady=10)
+shorten_button.grid(row=0, column=0, pady=250, padx=170)
+
+# Create a label to display the shortened URL
+output_label = tk.Label(frame, text="", font=("Arial", 12), bg="#FFC300", fg="#333")
+output_label.pack()
+
+# Run the tkinter main loop
+root.mainloop()
